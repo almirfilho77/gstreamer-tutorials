@@ -26,13 +26,6 @@ main(int argc, char* argv[])
     /* Create the empty pipeline */
     pipeline = gst_pipeline_new("test-pipeline");
 
-    // Learning purposes: compare pointer addresses to after they are freed
-    std::cout << "Pipeline pointer address: " << pipeline << std::endl;
-    std::cout << "Source pointer address: " << source << std::endl;
-    std::cout << "Filter pointer address: " << filter << std::endl;
-    std::cout << "Sink pointer address: " << sink << std::endl;
-
-
     /* Build the pipeline */
     gst_bin_add_many(GST_BIN(pipeline), 
                             source,
@@ -68,8 +61,7 @@ main(int argc, char* argv[])
 
     /* Wait until error or EOS */
     bus = gst_element_get_bus (pipeline);
-    msg =
-        gst_bus_timed_pop_filtered (bus, GST_CLOCK_TIME_NONE,
+    msg = gst_bus_timed_pop_filtered (bus, GST_CLOCK_TIME_NONE,
         static_cast<GstMessageType>(GST_MESSAGE_ERROR | GST_MESSAGE_EOS));
 
     /* Parse error msg */
